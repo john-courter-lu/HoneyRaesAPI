@@ -16,10 +16,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//上面的code是设置一个app来be served as a web API
+
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
+
+//下面是重点 
+//创建了一个endpoint =  a route (a URL to make a request) + a handler / The lambda function
+// MapGet Get request
+
+
 
 app.MapGet("/weatherforecast", () =>
 {
@@ -32,12 +40,20 @@ app.MapGet("/weatherforecast", () =>
         ))
         .ToArray();
     return forecast;
+    /* returns that data. This data will be turned from C# data into JSON */
 })
-.WithName("GetWeatherForecast");
+.WithName("GetWeatherForecast"); // 没必要, 为了 存档或正式说明
+
+app.MapGet("/hello", () =>
+{
+    return "hello";
+});
 
 app.Run();
+// 这里是run this app
 
 record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+// 这和定义class一样

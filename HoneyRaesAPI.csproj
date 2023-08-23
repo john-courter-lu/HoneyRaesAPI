@@ -9,5 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
+  
+  <!--  Package references in .NET are a lot like dependencies in the package.json file in an npm project. They are references for outside libraries and projects that your project needs to work correctly.  -->
 
+  <!-- This particular library will help you create a nice little UI in the browser to test your API. There is an explorer chapter with a tutorial in its use. -->
 </Project>
