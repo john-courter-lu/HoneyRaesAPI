@@ -79,7 +79,7 @@ app.MapGet("/serviceTickets/{id}", (int id) =>
     serviceTicket.Employee = employees.FirstOrDefault(e => e.Id == serviceTicket.EmployeeId);
     serviceTicket.Customer = customers.FirstOrDefault(e => e.Id == serviceTicket.CustomerId);
     return Results.Ok(serviceTicket);
-    
+
 });
 
 app.MapGet("/employees", () =>
@@ -123,11 +123,22 @@ app.MapGet("/customers/{id}", (int id) =>
 app.MapPost("/servicetickets", (ServiceTicket serviceTicket) =>
 {
     // creates a new id (When we get to it later, our SQL database will do this for us like JSON Server did!)
-    serviceTicket.Id = serviceTickets.Count > 0 ?serviceTickets.Max(st => st.Id) + 1 : 1;
+    serviceTicket.Id = serviceTickets.Count > 0 ? serviceTickets.Max(st => st.Id) + 1 : 1;
     serviceTickets.Add(serviceTicket);
     return serviceTicket;
 });
 
+app.MapDelete("/serviceTickets/{id}", (int id) =>
+{
+
+    ServiceTicket ticketToRemove = serviceTickets.FirstOrDefault(ticket => ticket.Id == id);
+
+    if (ticketToRemove != null)
+    {
+        serviceTickets.Remove(ticketToRemove);
+    }
+
+});
 
 app.Run();
 // 这里是run this app
