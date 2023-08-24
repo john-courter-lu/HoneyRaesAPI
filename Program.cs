@@ -157,6 +157,14 @@ app.MapPut("/servicetickets/{id}", (int id, ServiceTicket serviceTicket) =>
     return Results.Ok();
 });
 
+app.MapPost("/servicetickets/{id}/complete", (int id) =>
+{
+
+ServiceTicket ticketToComplete = serviceTickets.FirstOrDefault(st => st.Id == id);
+ticketToComplete.DateCompleted = DateTime.Today;
+
+});
+
 app.Run();
 // 这里是run this app
 
