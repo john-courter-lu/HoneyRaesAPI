@@ -120,6 +120,15 @@ app.MapGet("/customers/{id}", (int id) =>
 
 });
 
+app.MapPost("/servicetickets", (ServiceTicket serviceTicket) =>
+{
+    // creates a new id (When we get to it later, our SQL database will do this for us like JSON Server did!)
+    serviceTicket.Id = serviceTickets.Count > 0 ?serviceTickets.Max(st => st.Id) + 1 : 1;
+    serviceTickets.Add(serviceTicket);
+    return serviceTicket;
+});
+
+
 app.Run();
 // 这里是run this app
 
