@@ -75,6 +75,8 @@ app.MapGet("/serviceTickets/{id}", (int id) =>
     {
         return Results.NotFound();
     }
+
+    serviceTicket.Employee = employees.FirstOrDefault(e => e.Id == serviceTicket.EmployeeId);
     return Results.Ok(serviceTicket);
     
 });
