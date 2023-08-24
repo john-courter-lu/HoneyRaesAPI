@@ -79,7 +79,14 @@ app.MapGet("/employees", () =>
 
 app.MapGet("/employees/{id}", (int id) =>
 {
-    return employees.FirstOrDefault(st => st.Id == id);
+    Employee employee = employees.FirstOrDefault(e => e.Id == id);
+
+    if (employee == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(employee);
+    
 });
 
 app.MapGet("/customers", () =>
@@ -89,14 +96,18 @@ app.MapGet("/customers", () =>
 
 app.MapGet("/customers/{id}", (int id) =>
 {
-    return customers.FirstOrDefault(st => st.Id == id);
+    Customer customer = customers.FirstOrDefault(e => e.Id == id);
+
+    if (customer == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(customer);
+
 });
 
 app.Run();
 // 这里是run this app
 
-record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+
 // 这和定义class一样
