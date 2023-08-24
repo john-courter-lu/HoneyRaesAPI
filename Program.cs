@@ -62,26 +62,14 @@ var summaries = new[]
 //创建了一个endpoint =  a route (a URL to make a request) + a handler / The lambda function
 // MapGet Get request
 
-
-
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/servicetickets", () =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-    /* returns that data. This data will be turned from C# data into JSON */
-})
-.WithName("GetWeatherForecast"); // 没必要, 为了 存档或正式说明
+    return serviceTickets;
+});
 
-app.MapGet("/hello", () =>
+app.MapGet("/servicetickets/{id}", (int id) =>
 {
-    return "hello";
+    return serviceTickets.FirstOrDefault(st => st.Id == id);
 });
 
 app.Run();
