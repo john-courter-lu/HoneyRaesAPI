@@ -140,7 +140,7 @@ app.MapDelete("/serviceTickets/{id}", (int id) =>
 
 });
 
-app.MapPut("/servicetickets/{id}", (int id, ServiceTicket serviceTicket) =>
+app.MapPut("/servicetickets/{id}", (int id, ServiceTicket updatedServiceTicket) =>
 {
     ServiceTicket ticketToUpdate = serviceTickets.FirstOrDefault(st => st.Id == id);
     int ticketIndex = serviceTickets.IndexOf(ticketToUpdate);
@@ -149,14 +149,18 @@ app.MapPut("/servicetickets/{id}", (int id, ServiceTicket serviceTicket) =>
         return Results.NotFound();
     }
     //the id in the request route doesn't match the id from the ticket in the request body. That's a bad request!
-    if (id != serviceTicket.Id)
+    if (id != updatedServiceTicket.Id)
     {
         return Results.BadRequest();
     }
-    serviceTickets[ticketIndex] = serviceTicket;
+    serviceTickets[ticketIndex] = updatedServiceTicket;
     return Results.Ok();
 });
 
+// 教材中用的是MapPost
+// 但Greg说, 若已经有id了,就用Put, 没有才用Post,
+// 所以把complete从MapPost改为了MapPut
+// 但后来又学到MapPost是create or update, MapPut是edit
 app.MapPost("/servicetickets/{id}/complete", (int id) =>
 {
 
